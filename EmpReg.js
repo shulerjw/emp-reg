@@ -29,8 +29,8 @@ casper.selectOptionByValue = function(selector, valueToMatch){
     }, selector, valueToMatch);
 };
 
-outputFile = './DemoAccounts.csv'
-outputFormat = '%USER%,%PASS%,%FEIN%,%BIZ%\r\n'
+outputFile = './DemoAccounts.csv';
+outputFormat = '%USER%,%PASS%,%FEIN%,%BIZ%\r\n';
 
 
 URL = 'https://devuitax.dew.sc.gov/scuidev/employers-page.html';
@@ -44,7 +44,7 @@ casper.start();
 
 function randomFEIN() {
     return Math.floor(100000000 + Math.random() * 900000000);
-};
+}
 
     casper.then(function() {
         var current = 8781;
@@ -256,7 +256,7 @@ function randomFEIN() {
                     this.capture('Employer'+ ctr +'.png');
                     this.echo('Employer #' + ctr + ' ------------------------Success!');
                     fs.write(outputFile, content, 'a');
-                })
+                });
 
         })(current);
         current++;
@@ -264,5 +264,5 @@ function randomFEIN() {
 });
 
 casper.run(function() {
-    this.log('Done.')
+    this.log('Done.');
 });
