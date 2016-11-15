@@ -29,7 +29,7 @@ casper.selectOptionByValue = function(selector, valueToMatch){
     }, selector, valueToMatch);
 };
 
-outputFile = 'C:/Users/trey.shuler/Downloads/DemoAccounts.csv';
+outputFile = './DemoAccounts.csv';
 outputFormat = '%USER%,%PASS%,%FEIN%,%BIZ%\r\n';
 
 
