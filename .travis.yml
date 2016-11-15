@@ -1,11 +1,9 @@
 language: node_js
 node_js:
   - "6.1"
-before_install:
-  - git submodule update --init --recursive
 install:
   - npm install
-  - npm install jshint
+  - npm install -g jshint
 before_script:
   - npm install -g casperjs
   - phantomjs --version; casperjs --version

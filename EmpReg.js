@@ -1,4 +1,4 @@
-var URL, USER, PASS, BIZ;
+var USER, PASS, BIZ;
 
 // requires
 var casper = require('casper').create({
