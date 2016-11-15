@@ -1,9 +1,17 @@
 language: node_js
 node_js:
-  - "node"
   - "6.1"
+before_install:
+  - git submodule update --init --recursive
 install:
+  - npm install -g grunt-cli bower
   - npm install
   - npm install jshint
+  - bower install
+before_script:
+  - npm install -g casperjs
+  - phantomjs --version; casperjs --version
+  - grunt connect:test:keepalive &
+script: npm test
 notifications:
   email: false
