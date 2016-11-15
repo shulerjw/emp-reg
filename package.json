@@ -1,0 +1,19 @@
+{
+  "name": "emp-reg",
+  "version": "1.0.0",
+  "description": "Automated generation of SCDEW employer accounts",
+  "main": "EmpReg.js",
+  "scripts": {
+    "test": "jshint EmpReg.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shulerjw/emp-reg.git"
+  },
+  "author": "Trey Shuler",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shulerjw/emp-reg/issues"
+  },
+  "homepage": "https://github.com/shulerjw/emp-reg#readme"
+}
