@@ -42,16 +42,14 @@ PASS = 'P@ssword1234';
 
 casper.start();
 
-function randomFEIN() {
+    function randomFEIN() {
     return Math.floor(100000000 + Math.random() * 900000000);
-}
+    }
 
-    casper.then(function() {
-        var current = 8781;
-        var endNum = 8783;
+    casper.then(function regEmp() {
+        var endNum = 9651;
 
-
-        for (;current < endNum;) {
+        for (var current = 9645; current < endNum; current++) {
 
         (function(ctr) {
             casper.thenOpen(URL, function() {
@@ -162,7 +160,7 @@ function randomFEIN() {
                     BIZ = biznames.shift();
 
                     this.selectOptionByValue('select#ddlLegalentityType', 'SOLP');
-                    this.selectOptionByValue('select#ddlDropDownListOLD', 'MAIL');
+                    this.selectOptionByValue('select#ddlDropDownListOLD', 'USML');
                     this.fillXPath(x('//*[@id="wzsBusinessInformation"]'), {
                         '//*[@id="txtlegalName"]': BIZ,
                         '//*[@id="txtTextBox1"]': '01/01/2015'
@@ -249,6 +247,7 @@ function randomFEIN() {
                 }) 
 
                 .thenClick(x('//*[@id="wizMain"]/div[2]/a[2]'), function() {
+                    this.capture('debug.png')
                     })
 
                .waitUntilVisible(x('//*[@id="wzsRegistration_Status_Success"]'), function() { 
@@ -257,12 +256,9 @@ function randomFEIN() {
                     this.echo('Employer #' + ctr + ' ------------------------Success!');
                     fs.write(outputFile, content, 'a');
                 });
-
-        })(current);
-        current++;
-    }
-});
-
+            })(current);
+        }
+    });
 casper.run(function() {
     this.log('Done.');
 });
