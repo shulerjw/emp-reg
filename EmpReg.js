@@ -9,6 +9,11 @@ var x = require('casper').selectXPath;
 var fs = require('fs');
 var biznames = require('./biznames.json');
 
+// config stuff
+var configFile = require('./config');
+var start = configFile.startNum;
+var end = configFile.endNum;
+
 casper.options.viewportSize = { width: 1500, height: 1500 };
 
 casper.userAgent('Mozilla/4.0 (comptible; MSIE 6.0; Windows NT 5.1)');
@@ -43,13 +48,12 @@ PASS = 'P@ssword1234';
 casper.start();
 
     function randomFEIN() {
-    return Math.floor(100000000 + Math.random() * 900000000);
+    return Math.floor(200000000 + Math.random() * 900000000);
     }
 
     casper.then(function regEmp() {
-        var endNum = 9651;
 
-        for (var current = 9645; current < endNum; current++) {
+        for (; start < end; start++) {
 
         (function(ctr) {
             casper.thenOpen(URL, function() {
@@ -57,7 +61,7 @@ casper.start();
 
                 .then(function() {
                     this.thenClick(x('/html/body/div[2]/div/div/div[2]/div[2]/div[3]/div[3]/a'));
-                    this.echo('[ ' + ctr + ' of ' + endNum + ' ] - Creating Employer Account.');
+                    this.echo('[ ' + ctr + ' of ' + end + ' ] - Creating Employer Account.');
                 })
 
                 .then(function() {
@@ -251,11 +255,11 @@ casper.start();
 
                .waitUntilVisible(x('//*[@id="wzsRegistration_Status_Success"]'), function() { 
                     var content = outputFormat.replace('%USER%', USER).replace('%PASS%', PASS).replace('%FEIN%', FEIN).replace('%BIZ%', BIZ);
-                    this.capture('Employer'+ ctr +'.png');
+                    this.capture('screenshots/Employer'+ ctr +'.png');
                     this.echo('Employer #' + ctr + ' ------------------------Success!');
                     fs.write(outputFile, content, 'a');
                 });
-            })(current);
+            })(start);
         }
     });
 casper.run(function() {
