@@ -247,7 +247,6 @@ casper.start();
                 }) 
 
                 .thenClick(x('//*[@id="wizMain"]/div[2]/a[2]'), function() {
-                    this.capture('debug.png')
                     })
 
                .waitUntilVisible(x('//*[@id="wzsRegistration_Status_Success"]'), function() { 
