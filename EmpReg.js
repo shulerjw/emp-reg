@@ -264,5 +264,5 @@ casper.start();
         }
     });
 casper.run(function() {
-    this.log('Done.');
+    this.log('Done.')
 });
