@@ -1,7 +1,7 @@
 var config = {
 	// Starts gen from startNumber to endNumber, determining how many accounts are made
-startNum:1912,
-endNum:1915,
+startNum:9372,
+endNum:9376,
 
 };
 

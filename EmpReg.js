@@ -3,7 +3,7 @@ var URL, USER, PASS, BIZ;
 // requires
 var casper = require('casper').create({
     verbose: true,
-    logLevel: "debug"
+    logLevl: "debug"
 });
 var x = require('casper').selectXPath;
 var fs = require('fs');
@@ -15,6 +15,7 @@ var start = configFile.startNum;
 var end = configFile.endNum;
 
 casper.options.viewportSize = { width: 1500, height: 1500 };
+casper.options.waitTimeout = 10000;
 
 casper.userAgent('Mozilla/4.0 (comptible; MSIE 6.0; Windows NT 5.1)');
 
@@ -53,7 +54,7 @@ casper.start();
 
     casper.then(function regEmp() {
 
-        for (; start < end; start++) {
+        for (; start <= end; start++) {
 
         (function(ctr) {
             casper.thenOpen(URL, function() {
@@ -255,13 +256,12 @@ casper.start();
 
                .waitUntilVisible(x('//*[@id="wzsRegistration_Status_Success"]'), function() { 
                     var content = outputFormat.replace('%USER%', USER).replace('%PASS%', PASS).replace('%FEIN%', FEIN).replace('%BIZ%', BIZ);
-                    this.capture('screenshots/Employer'+ ctr +'.png');
+                    this.capture('screenshots/'+ USER +'.png');
                     this.echo('Employer #' + ctr + ' ------------------------Success!');
                     fs.write(outputFile, content, 'a');
                 });
             })(start);
         }
     });
-casper.run(function() {
-    this.log('Done.');
+casper.run(console.log('Done.');
 });
