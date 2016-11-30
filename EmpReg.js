@@ -263,5 +263,6 @@ casper.start();
             })(start);
         }
     });
-casper.run(console.log('Done.');
+casper.run(function() {
+    this.log('Done.');
 });
