@@ -1,10 +1,31 @@
-var URL, USER, PASS, BIZ;
+var URL, USER, PASS, FEIN, BIZ;
 
 // requires
-var casper = require('casper').create({
+var casper = require("casper").create ({
+    waitTimeout: 15000,
+    stepTimeout: 15000,
     verbose: true,
-    logLevl: "debug"
+    logLevel: "debug",
+    viewportSize: {
+        width: 1400,
+        height: 768
+    },
+    onWaitTimeout: function() {
+        console.log('Wait TimeOut Occured');
+        this.capture('xWait_timeout.png');
+        this.exit();
+    },
+    onStepTimeout: function() {
+        console.log('Step TimeOut Occured');
+        this.capture('xStepTimeout.png');
+        this.exit();
+    }
 });
+
+casper.on('remote.message', function(msg) {
+    console.log('***remote message caught***: ' + msg);
+});
+
 var x = require('casper').selectXPath;
 var fs = require('fs');
 var biznames = require('./biznames.json');
@@ -13,9 +34,6 @@ var biznames = require('./biznames.json');
 var configFile = require('./config');
 var start = configFile.startNum;
 var end = configFile.endNum;
-
-casper.options.viewportSize = { width: 1500, height: 1500 };
-casper.options.waitTimeout = 10000;
 
 casper.userAgent('Mozilla/4.0 (comptible; MSIE 6.0; Windows NT 5.1)');
 
@@ -35,15 +53,12 @@ casper.selectOptionByValue = function(selector, valueToMatch){
     }, selector, valueToMatch);
 };
 
-outputFile = './DemoAccounts.csv';
-outputFormat = '%USER%,%PASS%,%FEIN%,%BIZ%\r\n';
+var outputFile = './DemoAccounts.csv';
+var outputFormat = '%USER%,%PASS%,%FEIN%,%BIZ%\r\n';
 
 
 URL = 'https://devuitax.dew.sc.gov/scuidev/employers-page.html';
-// USER = 'SCEmp' + ctr;
 PASS = 'P@ssword1234';
-// FEIN = '654376697';
-// BIZ = biznames.shift();
 
 
 casper.start();
@@ -265,4 +280,5 @@ casper.start();
     });
 casper.run(function() {
     this.log('Done.')
+    this.exit();
 });
