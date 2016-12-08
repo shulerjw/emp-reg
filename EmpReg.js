@@ -26,6 +26,10 @@ casper.on('remote.message', function(msg) {
     console.log('***remote message caught***: ' + msg);
 });
 
+casper.on('wait.timeout', function(msg) {
+    console.log('***Server is acting up***: ' + msg);
+});
+
 var x = require('casper').selectXPath;
 var fs = require('fs');
 var biznames = require('./biznames.json');
@@ -34,6 +38,7 @@ var biznames = require('./biznames.json');
 var configFile = require('./config');
 var start = configFile.startNum;
 var end = configFile.endNum;
+var useDevURL = configFile.useDevURL;
 
 casper.userAgent('Mozilla/4.0 (comptible; MSIE 6.0; Windows NT 5.1)');
 
@@ -56,8 +61,12 @@ casper.selectOptionByValue = function(selector, valueToMatch){
 var outputFile = './DemoAccounts.csv';
 var outputFormat = '%USER%,%PASS%,%FEIN%,%BIZ%\r\n';
 
+if(useDevURL) {
+    URL = 'https://devuitax.dew.sc.gov/scuidev/employers-page.html';
+} else {
+    URL = 'https://systestuitax.dew.sc.gov/scuisys/employers-page.html';
+}
 
-URL = 'https://devuitax.dew.sc.gov/scuidev/employers-page.html';
 PASS = 'P@ssword1234';
 
 
@@ -77,7 +86,7 @@ casper.start();
 
                 .then(function() {
                     this.thenClick(x('/html/body/div[2]/div/div/div[2]/div[2]/div[3]/div[3]/a'));
-                    this.echo('[ ' + ctr + ' of ' + end + ' ] - Creating Employer Account.');
+                    this.echo('[ ' + ctr + ' of ' + end + ' ] - Registering Employer.');
                 })
 
                 .then(function() {

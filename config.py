@@ -23,19 +23,19 @@ def printmenu():
     print ("**Note: These values are appended to the standard")
     print ("'SCEmp' username (E.g., 'SCEmp100, SCEmp101, etc).")
     print (50 * '-')
-    print ("1. Yes")
-    print ("0. No (Quit)")
+    print ("[y] Yes")
+    print ("[n] No (Quit)")
     print (50 * '-')
-    choice = raw_input('Enter your choice [0-1] : ')
+    choice = raw_input('Enter your choice [y/n] : ')
     try:
         choice = int(choice)
     except:
         printmenu()
     print (30 * '-')
 
-    if choice == 1:
+    if choice == y:
         configBuilder()
-    elif choice == 0:
+    elif choice == n:
         cleanExit("bye")
     else:
         printmenu()
@@ -57,7 +57,7 @@ def configBuilder():
                     print (30 * '-')
                     print "Your Number for Accounts to Start at is not a number"
                     print "Your Current Start Number: %s" %(startNum)
-                    startNum = raw_input("Number for Accounts to Start at (recommend 0): ")
+                    startNum = raw_input("Number for Accounts to Start at: ")
                     flag = 1
             try:
                 int(endNum)
@@ -68,7 +68,7 @@ def configBuilder():
                     print (30 * '-')
                     print "Your Number for Accounts to End at is not a number"
                     print "Your Current End Number: %s" %(endNum)
-                    startNum = raw_input("Number for Accounts to End at (recommend 10): ")
+                    startNum = raw_input("Number for Accounts to End at: ")
                     flag = 1
             if startNum > endNum:
                     print (30 * '-')
